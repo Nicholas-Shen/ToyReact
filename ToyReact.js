@@ -1,7 +1,7 @@
 /*
  * @Author: Nicholas Shen
  * @Date: 2020-08-04 21:56:39
- * @LastEditTime: 2020-08-04 23:01:43
+ * @LastEditTime: 2020-08-04 23:19:17
  * @FilePath: /ToyReact/ToyReact.js
  */
 class ElementWrapper {
@@ -59,9 +59,19 @@ export class Component {
         this.update();
     }
     update() {
+        let placeholder = document.createComment("placeholder");
+        let range = document.createRange();
+        
+        range.setStart(this.range.endContainer, this.range.endOffset);
+        range.setEnd(this.range.endContainer, this.range.endOffset);
+        range.insertNode(placeholder);
+
         this.range.deleteContents();
+
         let vdom = this.render();
         vdom.mountTo(this.range);
+
+        // placeholder.parentNode.removeChild(placeholder);
     }
     appendChild(vchild) {
         this.children.push(vchild);
