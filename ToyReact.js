@@ -1,3 +1,9 @@
+/*
+ * @Author: Nicholas Shen
+ * @Date: 2020-08-04 21:56:39
+ * @LastEditTime: 2020-08-04 23:01:43
+ * @FilePath: /ToyReact/ToyReact.js
+ */
 class ElementWrapper {
     constructor(type) {
         this.root = document.createElement(type);
@@ -14,7 +20,7 @@ class ElementWrapper {
     }
     appendChild(vchild) {
         let range = document.createRange();
-        if(this.root.children.lenth) {
+        if(this.root.children.length) {
             range.setStartAfter(this.root.lastChild);
             range.setEndAfter(this.root.lastChild);
         } else {
@@ -96,6 +102,7 @@ export let ToyReact = {
 
         let insertChildren = (children) => {
             for(let child of children) {
+                console.log(child);
                 if(typeof child === "object" && child instanceof Array) {
                     insertChildren(child);
                 } else {

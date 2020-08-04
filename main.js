@@ -1,3 +1,9 @@
+/*
+ * @Author: Nicholas Shen
+ * @Date: 2020-08-04 21:56:39
+ * @LastEditTime: 2020-08-04 23:05:15
+ * @FilePath: /ToyReact/main.js
+ */
 import {ToyReact, Component} from "./ToyReact.js";
 
 class Square extends Component {
@@ -10,7 +16,7 @@ class Square extends Component {
     render() {
         return (
             <button className="square" onClick={() => this.setState({value: 'X'})}>
-                {this.props.value >= 0 ? this.props.value : ""}
+                {this.state.value ? this.state.value : ""}
             </button>
         );
     }
@@ -39,7 +45,7 @@ class Board extends Component {
                     {this.renderSquare(8)}
                 </div>
             </div>
-        )
+        );
     }
 }
 
