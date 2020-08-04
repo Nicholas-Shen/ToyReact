@@ -1,7 +1,8 @@
-require('./lib.js');
+import {ToyReact} from "./ToyReact.js";
 
-for(let i of [1,2,3,4,5]) {
-    console.log(i);
+class MyComponent {
+
 }
 
-console.log('main');
+// let a = <MyComponent name="a" />;
+let a = <div name="a" />;
