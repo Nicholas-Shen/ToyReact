@@ -1,5 +1,3 @@
-import { match } from "assert";
-
 class ElementWrapper {
     constructor(type) {
         this.root = document.createElement(type);

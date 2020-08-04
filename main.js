@@ -9,7 +9,7 @@ class Square extends Component {
     }
     render() {
         return (
-            <button class="square" onClick={() => this.setState({value: 'X'})}>
+            <button className="square" onClick={() => this.setState({value: 'X'})}>
                 {this.props.value >= 0 ? this.props.value : ""}
             </button>
         );
@@ -18,7 +18,6 @@ class Square extends Component {
 
 class Board extends Component {
     renderSquare(i) {
-        console.log(i);
         return <Square value={i}></Square>
     }
     render() {
