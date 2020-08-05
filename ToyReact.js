@@ -1,13 +1,17 @@
 /*
  * @Author: Nicholas Shen
  * @Date: 2020-08-04 21:56:39
- * @LastEditTime: 2020-08-05 22:12:29
+ * @LastEditTime: 2020-08-05 23:52:16
  * @FilePath: /ToyReact/ToyReact.js
  */
-class ElementWrapper {
+
+ let childrenSymbol = Symbol("children");
+
+ class ElementWrapper {
     constructor(type) {
         this.type = type;
         this.props = Object.create(null);
+        this[childrenSymbol] = [];
         this.children = [];
     }
     setAttribute(name, value) {
@@ -23,6 +27,7 @@ class ElementWrapper {
         */
         this.props[name] = value;
     }
+
     appendChild(vchild) {
         /*
         let range = document.createRange();
@@ -35,10 +40,26 @@ class ElementWrapper {
         }
         vchild.mountTo(range);
         */
-        this.children.push(vchild);
+        this[childrenSymbol].push(vchild);
+        this.children.push(vchild.vdom);
     }
+
+    get vdom() {
+        return this;
+    }
+
     mountTo(range) {
         this.range = range;
+
+        let placeholder = document.createComment("placeholder");
+        let endRange = document.createRange();
+
+        endRange.setStart(range.endContainer, range.endOffset);
+        endRange.setEnd(range.endContainer, range.endOffset);
+        endRange.insertNode(placeholder);
+
+        this.range.deleteContents();
+
         range.deleteContents();
 
         let element = document.createElement(this.type);
@@ -84,6 +105,10 @@ class TextWrapper {
         range.deleteContents();
         range.insertNode(this.root);
     }
+
+    get vdom() {
+        return this;
+    }
 }
 
 export class Component {
@@ -114,20 +139,22 @@ export class Component {
         this.range.deleteContents();
         */
 
-        let vdom = this.render();
+        let vdom = this.vdom;
 
-        if(this.vdom) {
+        if(this.oldVdom) {
             let isSameNode = (node1, node2) => {
                 if(node1.type !== node2.type) {
                     return false;
                 }
 
                 for(let name in node1.props) {
+                    /*
                     if(typeof node1.props[name] === "function"
                         && typeof node2.props[name] === "function"
                         && node1.props[name].toString() === node2.props[name].toString()) {
                             continue;
                     }
+                    */
 
                     if(typeof node1.props[name] === "object"
                         && typeof node2.props[name] === "object"
@@ -176,15 +203,20 @@ export class Component {
 
             console.log("new:", vdom);
             console.log("old:", this.vdom);
-            replace(vdom, this.vdom);
+            replace(vdom, this.oldVdom);
         } else {
             vdom.mountTo(this.range);
         }
 
-        this.vdom = vdom;
+        this.oldVdom = vdom;
 
         // placeholder.parentNode.removeChild(placeholder);
     }
+
+    get vdom() {
+        return this.render().vdom;
+    }
+
     appendChild(vchild) {
         this.children.push(vchild);
     }
@@ -228,7 +260,6 @@ export let ToyReact = {
 
         let insertChildren = (children) => {
             for(let child of children) {
-                console.log(child);
                 if(typeof child === "object" && child instanceof Array) {
                     insertChildren(child);
                 } else {

@@ -1,7 +1,7 @@
 /*
  * @Author: Nicholas Shen
  * @Date: 2020-08-04 21:56:39
- * @LastEditTime: 2020-08-05 22:03:33
+ * @LastEditTime: 2020-08-05 22:52:47
  * @FilePath: /ToyReact/main.js
  */
 import {ToyReact, Component} from "./ToyReact.js";
@@ -128,6 +128,9 @@ class Game extends Component {
 }
 
 ToyReact.render(<Game />, document.getElementById("root"));
+
+// let game = <Game />
+// console.log(game.vdom);
 
 function calculateWinner(squares) {
     const lines = [
