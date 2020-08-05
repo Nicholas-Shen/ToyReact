@@ -49,7 +49,6 @@ class Board extends Component {
     }
 }
 
-// let a = <MyComponent name="a" />;
 let a = <Board />
 
 ToyReact.render(

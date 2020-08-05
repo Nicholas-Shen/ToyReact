@@ -61,7 +61,7 @@ export class Component {
     update() {
         let placeholder = document.createComment("placeholder");
         let range = document.createRange();
-        
+
         range.setStart(this.range.endContainer, this.range.endOffset);
         range.setEnd(this.range.endContainer, this.range.endOffset);
         range.insertNode(placeholder);
