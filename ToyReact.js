@@ -1,7 +1,7 @@
 /*
  * @Author: Nicholas Shen
  * @Date: 2020-08-04 21:56:39
- * @LastEditTime: 2020-08-04 23:19:17
+ * @LastEditTime: 2020-08-05 22:12:29
  * @FilePath: /ToyReact/ToyReact.js
  */
 class ElementWrapper {
@@ -121,11 +121,25 @@ export class Component {
                 if(node1.type !== node2.type) {
                     return false;
                 }
+
                 for(let name in node1.props) {
+                    if(typeof node1.props[name] === "function"
+                        && typeof node2.props[name] === "function"
+                        && node1.props[name].toString() === node2.props[name].toString()) {
+                            continue;
+                    }
+
+                    if(typeof node1.props[name] === "object"
+                        && typeof node2.props[name] === "object"
+                        && JSON.stringify(node1.props[name]) === JSON.stringify(node2.props[name])) {
+                            continue;
+                    }
+
                     if(node1.props[name] !== node2.props[name]) {
                         return false;
                     }
                 }
+
                 if(Object.keys(node1.props).length !== Object.keys(node2.props).length) {
                     return false;
                 }

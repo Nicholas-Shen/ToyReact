@@ -1,7 +1,7 @@
 /*
  * @Author: Nicholas Shen
  * @Date: 2020-08-04 21:56:39
- * @LastEditTime: 2020-08-05 21:59:10
+ * @LastEditTime: 2020-08-05 22:03:33
  * @FilePath: /ToyReact/main.js
  */
 import {ToyReact, Component} from "./ToyReact.js";
@@ -117,7 +117,10 @@ class Game extends Component {
         return (
             <div className="game">
                 <div className="game-board">
-                    <Board squares={current.squares} onClick={i => this.handleClick(i)} />
+                    <Board 
+                        squares={current.squares} 
+                        onClick={i => this.handleClick(i)} 
+                    />
                 </div>
             </div>
         );
