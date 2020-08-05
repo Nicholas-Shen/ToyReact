@@ -1,7 +1,7 @@
 /*
  * @Author: Nicholas Shen
  * @Date: 2020-08-04 21:56:39
- * @LastEditTime: 2020-08-04 23:05:15
+ * @LastEditTime: 2020-08-05 21:59:10
  * @FilePath: /ToyReact/main.js
  */
 import {ToyReact, Component} from "./ToyReact.js";
@@ -54,14 +54,14 @@ class Board extends Component {
 class Game extends Component {
     constructor(props) {
         super(props);
-          this.state = {
-          history: [
-              {
+        this.state = {
+            history: [
+            {
                 squares: Array(9).fill(null)
-              }
-          ],
-          stepNumber: 0,
-          xIsNext: true
+            }
+            ],
+            stepNumber: 0,
+            xIsNext: true
         };
     }
 
@@ -127,22 +127,22 @@ class Game extends Component {
 ToyReact.render(<Game />, document.getElementById("root"));
 
 function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+    const lines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+    for (let i = 0; i < lines.length; i++) {
+        const [a, b, c] = lines[i];
+        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+            return squares[a];
+        }
     }
-  }
-  return null;
+    return null;
 }
 
